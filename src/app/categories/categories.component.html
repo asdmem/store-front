@@ -1,0 +1,19 @@
+<div *ngFor="let category of categories">{{ category.name }}</div>
+
+<form [formGroup]="form" (ngSubmit)="submit(form.value)">
+  <input type="text" [formControlName]="'name'" />
+  <ng-container
+    [formArrayName]="'array'"
+    *ngFor="let props of form.get('array')['controls']; let i = index"
+  >
+    <ng-container [formGroupName]="i">
+      <input [formControlName]="'name'" />
+      <select [formControlName]="'type'">
+          <option [ngValue]="0" selected>Число</option>
+          <option [ngValue]="1">Строка</option>
+      </select>
+    </ng-container>
+  </ng-container>
+  <button (click)="addProperty()" type="button">Добавить свойство</button>
+  <button type="submit" [disabled]="!form.valid">Отправить</button>
+</form>
