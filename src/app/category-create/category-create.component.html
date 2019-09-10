@@ -1,0 +1,43 @@
+<form [formGroup]="form" (ngSubmit)="submit(form.value)">
+  <mat-form-field>
+    <input matInput placeholder="Название" [formControlName]="'name'" />
+  </mat-form-field>
+  <ng-container
+    [formArrayName]="'array'"
+    *ngFor="let props of form.get('array')['controls']; let i = index"
+  >
+    <div class="option" [formGroupName]="i">
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Название поля"
+          [formControlName]="'name'"
+        />
+      </mat-form-field>
+      <mat-select [formControlName]="'type'">
+        <mat-option [value]="0">Число</mat-option>
+        <mat-option [value]="1">Строка</mat-option>
+      </mat-select>
+    </div>
+  </ng-container>
+<div>
+    <button
+      (click)="addProperty()"
+      class="btn"
+      type="button"
+      mat-stroked-button
+      color="primary"
+    >
+      Добавить свойство
+    </button>
+    <button
+      mat-stroked-button
+      class="btn"
+      color="accent"
+      type="submit"
+      [disabled]="!form.valid"
+    >
+      Отправить
+    </button>
+</div>
+</form>

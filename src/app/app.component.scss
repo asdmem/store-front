@@ -1,15 +1,29 @@
 :host {
-    display: flex;
-    flex-flow: column nowrap;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.center {
+  flex-flow: column nowrap;
+  display: flex;
 }
 
 button {
-    height: 30px;
-    width: 100%;
-    border: none;
-    background: green;
-    margin-bottom: 20px;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-bottom: 1px solid white;
+}
+
+main {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
 }

@@ -1,4 +1,6 @@
-<a [routerLink]="[ '/categories']"><button>Категории</button></a>
-<a [routerLink]="[ '/products']"><button>Продукты</button></a>
-<a [routerLink]="[ '/create']"><button>Создать</button></a>
-<router-outlet></router-outlet>
+<div class="center">
+  <a [routerLink]="['/categories']"><button>Категории</button></a>
+  <a [routerLink]="['/products']"><button>Продукты</button></a>
+  <a [routerLink]="['/create']"><button>Создать</button></a>
+</div>
+<main><router-outlet></router-outlet></main>

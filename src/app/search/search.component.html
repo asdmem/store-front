@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="save()">
+<form [formGroup]="form" (ngSubmit)="search()">
   <mat-form-field>
     <input matInput placeholder="Название" [formControlName]="'name'" />
   </mat-form-field>
@@ -34,5 +34,6 @@
       />
     </mat-form-field>
   </ng-container>
-  <button mat-flat-button type="submit" color="primary" [disabled]="!form.valid">Отправить</button>
+  <button mat-flat-button type="submit" color="primary" [disabled]="!form.valid">Поиск</button>
+  <button mat-flat-button type="reset" (click)="reset()">Сбросить</button>
 </form>

@@ -1,3 +1,5 @@
+import { AdditionalPropsValue } from './additional-props-value.class';
+import { Category } from './category.class';
 export class Product {
   constructor(
     public id: number = 0,
@@ -5,6 +7,7 @@ export class Product {
     public detail: string = '',
     public price: number = 0,
     public categoryId?: number,
-    public additionalPropsValues: any[] = []
+    public additionalPropsValues?: AdditionalPropsValue[],
+    public category?: Category,
   ) {}
 }

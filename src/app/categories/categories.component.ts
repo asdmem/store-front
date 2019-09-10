@@ -3,6 +3,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Category } from '@models/category.class';
 import { CategoryService } from '../category.service';
 import { AdditionalProps } from '../../models/additional-props.class';
+import { MatBottomSheet } from '@angular/material';
+import { CategoryCreateComponent } from '../category-create/category-create.component';
 
 @Component({
   selector: 'app-categories',
@@ -11,47 +13,31 @@ import { AdditionalProps } from '../../models/additional-props.class';
 })
 export class CategoriesComponent implements OnInit {
   categories: Category[] = [];
-  form: FormGroup;
 
   constructor(
     private categoryService: CategoryService,
-    private fb: FormBuilder
-  ) {
-    this.form = this.fb.group({
-      name: ['', Validators.required],
-      array: fb.array([])
-    });
-  }
+    private bottomSheet: MatBottomSheet
+  ) {}
 
   async ngOnInit() {
     this.categories = await this.categoryService.getCategories().toPromise();
   }
 
-  submit(value: { name: string; array: { name: string; type: number }[] }) {
-    const category = new Category();
-    category.name = value.name;
-    category.additionalProps = this.araryToProperties(value.array);
-    this.categoryService.saveCategory(category);
-  }
-
-  araryToProperties(
-    array: { name: string; type: number }[]
-  ): AdditionalProps[] {
-    const props: AdditionalProps[] = [];
-    array.forEach(({ name, type }) => {
-      const prop = new AdditionalProps(name, type);
-      props.push(prop);
+  remove(category: Category) {
+    this.categoryService.remove(category).subscribe(removedCategory => {
+      const index = this.categories.findIndex(it => it.id === removedCategory.id);
+      this.categories.splice(index, 1);
     });
-    return props;
   }
 
-  addProperty() {
-    const array = this.form.get('array') as FormArray;
-    array.push(
-      this.fb.group({
-        name: ['', Validators.required],
-        type: 1
-      })
-    );
+  added(category?: Category) {
+    if (category != null) {
+      this.categories.push(category);
+    }
+  }
+
+  create() {
+    const ref = this.bottomSheet.open(CategoryCreateComponent);
+    ref.afterDismissed().subscribe(category => this.added(category));
   }
 }
